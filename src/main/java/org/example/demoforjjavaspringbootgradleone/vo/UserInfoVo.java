@@ -5,7 +5,7 @@ import jdk.jfr.Name;
 import java.util.List;
 
 @Name("account")
-public class AccountVo {
+public class UserInfoVo {
 
     String userNo;
     String userName;

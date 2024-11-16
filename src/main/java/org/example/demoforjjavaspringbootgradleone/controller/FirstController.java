@@ -9,6 +9,7 @@ import org.example.demoforjjavaspringbootgradleone.utility.ValidMoblNo;
 import org.example.demoforjjavaspringbootgradleone.vo.AccountVo;
 import org.example.demoforjjavaspringbootgradleone.vo.UserIdListVo;
 
+import org.example.demoforjjavaspringbootgradleone.vo.UserInfoVo;
 import org.json.simple.JSONObject;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,11 +24,11 @@ import java.util.Map;
 public class FirstController extends BaseController {
 
     @PostMapping("/v2.0/service/user/mobile")
-    public Map<String, Object> firstController(HttpServletRequest request, HttpServletResponse response) {
+    public UserInfoVo firstController(HttpServletRequest request, HttpServletResponse response) {
 
-        Map<String, Object> result = new HashMap<>();
         Map<String, Object> req = this.getParams(request);
-        AccountVo userInfo = new AccountVo();
+        //AccountVo userInfo = new AccountVo();
+        UserInfoVo userInfo = new UserInfoVo();
         List<UserIdListVo> userIdListVo = new ArrayList<>();
         UserIdListVo emailIdInfo = new UserIdListVo();
         UserIdListVo mobileIdInfo = new UserIdListVo();
@@ -35,12 +36,11 @@ public class FirstController extends BaseController {
         try {
 
             /* 휴대폰 번호 검증 */
-            if(ValidMoblNo.isPhoneNumberId((String) req.get("userId"))){
+            //if(ValidMoblNo.isPhoneNumberId((String) req.get("userId"))){
 
                 userInfo.setUserId((String) req.get("userId"));
                 userInfo.setUserName((String) req.get("userNm"));
                 userInfo.setMobileNumber((String) req.get("mobileNo"));
-                result.put("account", userInfo);
 
                 /* userIdList 채우기 
                 *                   >> 조회 방식 아닌 List 추가 방식으로
@@ -57,15 +57,15 @@ public class FirstController extends BaseController {
                 userIdListVo.add(mobileIdInfo);
                 userInfo.setUserIdList(userIdListVo);
 
-            }else{
-                throw new BadRequestException();
-            }
+            //}else{
+            //    throw new BadRequestException();
+            //}
 
-        }catch(BadRequestException e) {
+        }catch(Exception e) {
 
         }
 
-        return result;
+        return userInfo;
 
     }
 }

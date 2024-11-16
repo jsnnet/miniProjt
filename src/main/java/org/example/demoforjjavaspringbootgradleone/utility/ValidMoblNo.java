@@ -35,21 +35,12 @@ public class ValidMoblNo {
 
         if(!countryCode.equals("KR")) {
 
-            String moblNoPattern = "\\b(\\d{11})\\b";         // 번호 11자리
-            String internationalFormat = "+91-$1";
+            String moblNoPattern = "\\+91(\\d{10})"; // +91 제외 10자리
+            String removeCntryNum = "0$1";
             Pattern pattern = Pattern.compile(moblNoPattern);
             Matcher matcher = pattern.matcher(jsonString);
-            clenanNumber = matcher.replaceAll(internationalFormat);
+            clenanNumber = matcher.replaceAll(removeCntryNum);
             log.info("Result of Replacement : " + clenanNumber);
-
-            //log.info("Result of Replacement : " + jsonString);
-            ////Pattern pattern = Pattern.compile("^(\\+\\d{1,3}|\\d{1,3})");
-            //String moblNoPattern = "\\+"+"82"+"\\b(\\d{11})\\b";         // 번호 11자리
-            //Pattern pattern = Pattern.compile(moblNoPattern);
-            //Matcher matcher = pattern.matcher(jsonString);
-            //String removeNum = "0$1";
-            //clenanNumber = matcher.replaceAll(removeNum); // 특수문자 포함 판단
-            //log.info("Result of Replacement : " + clenanNumber);
 
         }
         return clenanNumber;
